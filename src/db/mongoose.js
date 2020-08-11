@@ -16,9 +16,3 @@ const user = new User({
     email: 'dvishist27@gmail.com',
     password: 'parkzapp'
 })
-
-// user.save().then(() => {
-//     console.log(user)
-// }).catch(err => {
-//     console.log(err)
-// })
