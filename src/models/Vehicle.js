@@ -8,6 +8,10 @@ const Vehicle = mongoose.model('Vehicle', {
     model: {
         type: String,
         reqiired: true
+    },
+    idNumber: {
+        type: String,
+        required: true
     }
 })
 
