@@ -17,11 +17,14 @@ const parkingSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    occupied: {
-        type: Number,
-        default: 0,
-        required: true
-    }
+    occupants: [
+        {
+            occupant: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Vehicle'
+            }
+        }
+    ]
 })
 
 const Parking = mongoose.model('Parking', parkingSchema)
