@@ -1,18 +1,22 @@
 const mongoose = require('mongoose')
 
-const Vehicle = mongoose.model('Vehicle', {
+const vehicleSchema = mongoose.Schema({
     manufacturer: {
         type: String,
         reqiired: true
     },
     model: {
         type: String,
-        reqiired: true
+        required: true
     },
     idNumber: {
         type: String,
         required: true
     }
+}, {
+    timestamps: true
 })
+
+const Vehicle = mongoose.model('Vehicle', vehicleSchema)
 
 module.exports = Vehicle

@@ -3,7 +3,7 @@ const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-const User = mongoose.model('User', {
+const userSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -28,7 +28,23 @@ const User = mongoose.model('User', {
     avatar: {
         type: Buffer
     }
+}, {
+    timestamps: true
 })
 
+
+userSchema.virtual('vehicles', {
+    ref: 'Vehicle',
+    localField: '_id',
+    foreignField: 'owner'
+})
+
+userSchema.pre('save', async function (next) {
+    const userSchema = this
+    userSchema.password = userSchema.isModified('password') ? await bcrypt.hash(userSchema.password, 8) : userSchema.password
+    next()
+})
+
+const User = mongoose.model('User', userSchema)
 
 module.exports = User
