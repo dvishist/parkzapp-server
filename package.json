@@ -9,6 +9,9 @@
   "author": "vishist",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.9.28"
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.28",
+    "validator": "^13.1.1"
   }
 }
