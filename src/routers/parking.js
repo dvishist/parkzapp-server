@@ -1,6 +1,6 @@
 const express = require('express')
 const router = new express.Router()
-const Parking = require('../models/parking')
+const Parking = require('../db/models/parking')
 
 router.post('/parkings', async (req, res) => {
     const parking = new Parking(req.body)

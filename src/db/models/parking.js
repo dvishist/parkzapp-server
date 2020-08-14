@@ -6,6 +6,18 @@ const parkingSchema = mongoose.Schema({
         required: true,
         trim: true
     },
+    city: {
+        type: String,
+        required: true
+    },
+    postcode: {
+        type: Number,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true
+    },
     coordinates: {
         type: {
             latitude: Number,
@@ -17,14 +29,11 @@ const parkingSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    occupants: [
-        {
-            occupant: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Vehicle'
-            }
-        }
-    ]
+    occupants: {
+        type: Number,
+        default: 0
+    }
+
 })
 
 const Parking = mongoose.model('Parking', parkingSchema)
