@@ -6,14 +6,6 @@ const parkingSchema = mongoose.Schema({
         required: true,
         trim: true
     },
-    city: {
-        type: String,
-        required: true
-    },
-    postcode: {
-        type: Number,
-        required: true
-    },
     state: {
         type: String,
         required: true
