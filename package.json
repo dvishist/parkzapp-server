@@ -10,9 +10,7 @@
   "author": "vishist",
   "license": "ISC",
   "devDependencies": {
-    "env-cmd": "^10.1.0",
-    "jest": "^26.0.1",
-    "supertest": "^4.0.2"
+    "env-cmd": "^10.1.0"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.2.3",
