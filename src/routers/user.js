@@ -67,7 +67,7 @@ router.get('/users/self', auth, async (req, res) => {
 //update profile
 router.patch('/users/self', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowed = ['name', 'email', 'password']
+    const allowed = ['name', 'email', 'password', 'phone']
     const isAllowed = updates.every(update => allowed.includes(update))
     if (!isAllowed) return res.status(400).send({ error: 'Trying to add invalid updates!' })
     try {
@@ -89,6 +89,18 @@ router.delete('/users/self', auth, async (req, res) => {
         res.status(500).send(e)
     }
 })
+
+//check email availability
+router.get('/users/:email'), async (req, res) => {
+    const email = req.params.email
+    try {
+        const user = User.findOne({ email })
+        return user ? res.status(200).send(user) : res.status(404).send('User not found')
+    } catch (e) {
+        res.status(500).send()
+    }
+}
+
 
 //verify file is image
 const upload = multer({
