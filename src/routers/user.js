@@ -5,7 +5,7 @@ const User = require('../db/models/user')
 const multer = require('multer')
 const sharp = require('sharp')
 
-
+//default message to show on landing page
 router.get('/', async (req, res) => {
     res.status(200).send({
         message: "Welcome to the Parkzapp API. Refer to the API documentation for more details. https://github.com/dvishist/parkzapp-server"
