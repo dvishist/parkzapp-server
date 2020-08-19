@@ -94,7 +94,7 @@ router.delete('/users/self', auth, async (req, res) => {
 router.get('/users/:email'), async (req, res) => {
     const email = req.params.email
     try {
-        const user = User.findOne({ email })
+        const user = await User.findOne({ email })
         return user ? res.status(200).send(user) : res.status(404).send('User not found')
     } catch (e) {
         res.status(500).send()
