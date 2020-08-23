@@ -2,6 +2,8 @@ const express = require('express')
 const router = new express.Router()
 const auth = require('../middleware/auth')
 const User = require('../db/models/user')
+const Vehicle = require('../db/models/vehicle')
+
 const multer = require('multer')
 const sharp = require('sharp')
 
@@ -67,7 +69,7 @@ router.get('/users/self', auth, async (req, res) => {
 //update profile
 router.patch('/users/self', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowed = ['name', 'email', 'password']
+    const allowed = ['name', 'phone', 'password']
     const isAllowed = updates.every(update => allowed.includes(update))
     if (!isAllowed) return res.status(400).send({ error: 'Trying to add invalid updates!' })
     try {
@@ -127,6 +129,19 @@ router.get('/users/:id/avatar', async (req, res) => {
         if (!user) throw new Error()
         res.set('Content-Type', 'image/png')
         res.send(user.avatar)
+    } catch (e) {
+        res.status(404).send()
+    }
+})
+
+router.get('/users/vehicles', auth, async (req, res) => {
+    try {
+        console.log(req.user.id)
+        const vehicles = await Vehicle.find({
+            owner: req.user.id
+        })
+        if (vehicles) return res.status(200).send(vehicles)
+        else res.status(404).send('No vehicles found')
     } catch (e) {
         res.status(404).send()
     }

@@ -10,7 +10,7 @@ const vehicleRouter = require('./routers/vehicle')
 
 app.use(express.json())
 app.use(userRouter)
-// app.use(vehicleRouter)
+app.use(vehicleRouter)
 app.use(parkingRouter)
 
 app.listen(port, () => {
