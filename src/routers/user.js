@@ -48,6 +48,16 @@ router.post('/users/logout', auth, async (req, res) => {
     }
 })
 
+//verify token
+router.get('/users/verify/:token', async (req, res) => {
+    try {
+        const user = await User.findOne({ 'tokens.token': req.params.token })
+        if (user) return res.status(200).send(true)
+        else throw new Error()
+    } catch (err) {
+        res.status(400).send(false)
+    }
+})
 
 //logout of all session  remove all existing tokens
 //to be used when changing a password
