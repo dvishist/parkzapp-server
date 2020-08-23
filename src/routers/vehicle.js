@@ -7,7 +7,8 @@ const Vehicle = require('../db/models/vehicle')
 
 //create new Vehicle
 router.post('/vehicles', auth, async (req, res) => {
-    const vehicle = new Vehicle(req.body)
+    const body = req.body
+    const vehicle = new Vehicle({ ...body, owner: req.user.id })
     try {
         await vehicle.save()
         res.status(201).send(vehicle)
