@@ -134,6 +134,7 @@ router.get('/users/:id/avatar', async (req, res) => {
     }
 })
 
+//get vehicles owned by user
 router.get('/users/vehicles', auth, async (req, res) => {
     try {
         console.log(req.user.id)
