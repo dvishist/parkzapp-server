@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const { ObjectID } = require('bson')
 
 const vehicleSchema = mongoose.Schema({
     manufacturer: {

@@ -17,6 +17,13 @@ router.post('/vehicles', auth, async (req, res) => {
     }
 })
 
+//get vehicle by Id
+router.get('/vehicles/:id', auth, async (req, res) => {
+    const vehicle = Vehicle.findById(req.params.id)
+    if (!vehicle) throw new Error(`Couldn't find vehicle`)
+    res.send(vehicle)
+})
+
 //update a vehicle
 router.patch('/vehicles/:id', auth, async (req, res) => {
     const updates = req.body
