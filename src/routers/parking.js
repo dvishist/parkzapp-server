@@ -34,6 +34,9 @@ router.post('/parkings/:id/ingress', auth, async (req, res) => {
 router.post('/parkings/:id/egress', auth, async (req, res) => {
     const parking = await Parking.findById(req.params.id)
     if (!parking) throw new Error(`Couldn't find parking`)
+    parking.occupants--
+    await parking.save()
+    res.status(200).send(parking)
 })
 
 module.exports = router
