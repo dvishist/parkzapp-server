@@ -25,7 +25,6 @@ const parkingSchema = mongoose.Schema({
         type: Number,
         default: 0
     }
-
 })
 
 const Parking = mongoose.model('Parking', parkingSchema)

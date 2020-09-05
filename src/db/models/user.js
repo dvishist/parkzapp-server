@@ -3,6 +3,7 @@ const validator = require('validator')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Vehicle = require('./vehicle')
+const Parking = require('./parking')
 
 const userSchema = mongoose.Schema({
     name: {
@@ -35,7 +36,12 @@ const userSchema = mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    parkedIn: {
+        type: Boolean,
+        default: false,
+        required: true
+    }
 }, {
     timestamps: true
 })
