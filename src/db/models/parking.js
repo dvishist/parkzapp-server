@@ -24,6 +24,10 @@ const parkingSchema = mongoose.Schema({
     occupants: {
         type: Number,
         default: 0
+    },
+    charge: {
+        type: Number,
+        required: true
     }
 })
 
