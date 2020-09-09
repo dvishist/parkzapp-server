@@ -37,10 +37,16 @@ const userSchema = mongoose.Schema({
             required: true
         }
     }],
-    parkedIn: {
-        type: Boolean,
-        default: false,
-        required: true
+    parkState: {
+        parkedIn: {
+            type: Boolean,
+            required: true,
+            default: false
+        },
+        vehicle: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Vehicle'
+        }
     }
 }, {
     timestamps: true

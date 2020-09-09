@@ -79,7 +79,7 @@ router.get('/users/self', auth, async (req, res) => {
 //update profile
 router.patch('/users/self', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowed = ['name', 'phone', 'password']
+    const allowed = ['name', 'phone', 'password', 'parkState']
     const isAllowed = updates.every(update => allowed.includes(update))
     if (!isAllowed) return res.status(400).send({ error: 'Trying to add invalid updates!' })
     try {
@@ -153,6 +153,19 @@ router.get('/users/vehicles', auth, async (req, res) => {
         if (vehicles) return res.status(200).send(vehicles)
         else res.status(404).send('No vehicles found')
     } catch (e) {
+        res.status(404).send()
+    }
+})
+
+//update selected vehicle
+router.post('/users/vehicle/:userId/:vehicleId', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId)
+        const vehicle = await Vehicle.findById(req.params.vehicleId)
+        user.parkState.vehicle = vehicleId
+        await user.save()
+        res.status(200).send(user)
+    } catch (err) {
         res.status(404).send()
     }
 })
