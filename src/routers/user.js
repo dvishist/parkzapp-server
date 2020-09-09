@@ -157,12 +157,14 @@ router.get('/users/vehicles', auth, async (req, res) => {
     }
 })
 
-//update selected vehicle
-router.post('/users/vehicle/:userId/:vehicleId', auth, async (req, res) => {
+//update selected vehicle in Parkstate
+router.post('/users/vehicle/:vehicleId', auth, async (req, res) => {
     try {
-        const user = await User.findById(req.params.userId)
+        const user = await User.findById(req.user._id)
+        //console.log(user)
         const vehicle = await Vehicle.findById(req.params.vehicleId)
-        user.parkState.vehicle = vehicleId
+        console.log(vehicle)
+        user.parkState.vehicle = vehicle._id
         await user.save()
         res.status(200).send(user)
     } catch (err) {
