@@ -39,4 +39,13 @@ router.post('/parkings/:id/egress', auth, async (req, res) => {
     res.status(200).send(parking)
 })
 
+router.delete('/parkings/:id', auth, async () => {
+    try {
+        await Parking.findByIdAndDelete(req.params.id)
+        req.status(204).send()
+    } catch (err) {
+        req.status(400).send(err)
+    }
+})
+
 module.exports = router
