@@ -49,7 +49,7 @@ router.post('/parkings/findNearby', auth, async (req, res) => {
         result = result.sort((item1, item2) => item1.distance - item2.distance)
         res.status(200).send(result)
     } catch (err) {
-        res.status(400).send(err)
+        res.status(400).send(parkings)
     }
 })
 
