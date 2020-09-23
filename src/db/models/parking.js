@@ -6,6 +6,23 @@ const parkingSchema = mongoose.Schema({
         required: true,
         trim: true
     },
+    address: {
+        streetNumber: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        streetName: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        city: {
+            type: String,
+            required: true,
+            trim: true
+        }
+    },
     state: {
         type: String,
         required: true
