@@ -32,8 +32,8 @@ router.post('/parkings', auth, async (req, res) => {
 router.post('/parkings/findNearby', auth, async (req, res) => {
     try {
         const user = req.body
-        const parkings = Parking.find({})
-        const result = parkings.map(parking => {
+        const parkings = await Parking.find({})
+        let result = parkings.map(parking => {
             const distance = geolib.getDistance(
                 {
                     latitude: user.latitude,
@@ -46,10 +46,12 @@ router.post('/parkings/findNearby', auth, async (req, res) => {
                 , 1)
             return { parking, distance }
         })
-        result = result.sort((item1, item2) => item1.distance - item2.distance)
+
+        //sort distances by ascending order
+        result = result.sort((parking1, parking2) => parking1.distance - parking2.distance)
         res.status(200).send(result)
     } catch (err) {
-        res.status(400).send(parkings)
+        res.status(400).send(err.message)
     }
 })
 
