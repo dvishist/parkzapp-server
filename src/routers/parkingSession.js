@@ -4,7 +4,7 @@ const ParkingSession = require('../db/models/parkingSession')
 const auth = require('../middleware/auth')
 
 //create new Parking Session
-router.post('/parkingSessions', auth, async (req, res) => {
+router.post('/parkingsessions', auth, async (req, res) => {
     const session = new ParkingSession(req.body)
     try {
         await session.save()
@@ -15,7 +15,7 @@ router.post('/parkingSessions', auth, async (req, res) => {
 })
 
 //update Parking Session
-router.patch('/parkingSessions/:id', auth, async (req, res) => {
+router.patch('/parkingsessions/:id', auth, async (req, res) => {
     try {
         const session = ParkingSession.findById(req.body._id)
         Object.keys(req.body).forEach(update => {
@@ -29,7 +29,7 @@ router.patch('/parkingSessions/:id', auth, async (req, res) => {
 })
 
 //get Parking Session by Id
-router.get('/parkingSessions/:id', auth, async (req, res) => {
+router.get('/parkingsessions/:id', auth, async (req, res) => {
     const session = await ParkingSession.findById(req.params.id)
     if (!session) throw new Error(`Couldn't find session`)
     res.send(session)
