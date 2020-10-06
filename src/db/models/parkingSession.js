@@ -1,7 +1,4 @@
 const mongoose = require('mongoose')
-const User = require('./user')
-const Parking = require('./parking')
-const Vehicle = require('./vehicle')
 
 const parkingSessionSchema = mongoose.Schema({
     user: {
@@ -25,11 +22,12 @@ const parkingSessionSchema = mongoose.Schema({
             required: true
         },
         egress: {
-            type: Date
+            type: Date,
+            required: true
         }
     }
 })
 
-const parkingSession = mongoose.model(parkingSessionSchema)
+const parkingSession = mongoose.model('ParkingSession', parkingSessionSchema)
 
 module.exports = parkingSession
