@@ -7,6 +7,7 @@ const auth = require('../middleware/auth')
 router.post('/parkingsessions', auth, async (req, res) => {
     const session = new ParkingSession(req.body)
     session.ingress = new Date()
+    session.egress = null
     try {
         await session.save()
         res.status(201).send(session)
