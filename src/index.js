@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000
 const userRouter = require('./routers/user')
 const parkingRouter = require('./routers/parking')
 const vehicleRouter = require('./routers/vehicle')
-const parkingSessionRouter = require('./db/routers/parkingSession')
+const parkingSessionRouter = require('./routers/parkingSession')
 
 
 app.use(express.json())
