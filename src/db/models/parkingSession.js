@@ -20,17 +20,12 @@ const parkingSessionSchema = mongoose.Schema({
         ref: 'Parking'
     },
     timestamps: {
-        date: {
-            type: Date,
-            required: true
-        },
         ingress: {
             type: Date,
             required: true
         },
         egress: {
-            type: Date,
-            required: true
+            type: Date
         }
     }
 })
