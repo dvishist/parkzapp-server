@@ -163,7 +163,6 @@ router.post('/users/vehicle/:vehicleId', auth, async (req, res) => {
         const user = await User.findById(req.user._id)
         //console.log(user)
         const vehicle = await Vehicle.findById(req.params.vehicleId)
-        console.log(vehicle)
         user.parkState.vehicle = vehicle._id
         await user.save()
         res.status(200).send(user)

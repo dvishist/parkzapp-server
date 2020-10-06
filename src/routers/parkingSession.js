@@ -31,10 +31,10 @@ router.patch('/parkingsessions/:id', auth, async (req, res) => {
 })
 
 //egress parking Session
-router.get('/parkingsessions/egress/:id', auth, async (req, res) => {
+router.post('/parkingsessions/egress/:id', auth, async (req, res) => {
     try {
         const session = ParkingSession.findById(req.params.id)
-        session.egress = new Date()
+        session.timestamps.egress = new Date()
         await session.save()
         res.status(200).send(session)
     } catch (err) {
