@@ -6,9 +6,10 @@ const auth = require('../middleware/auth')
 //create new Parking Session
 router.post('/parkingsessions', auth, async (req, res) => {
     const session = new ParkingSession(req.body)
+    session.ingress = new Date()
     try {
         await session.save()
-        res.status(201).send(parking)
+        res.status(201).send(session)
     } catch (err) {
         res.status(400).send(err.message)
     }
@@ -21,6 +22,18 @@ router.patch('/parkingsessions/:id', auth, async (req, res) => {
         Object.keys(req.body).forEach(update => {
             session[update] = req.body[update]
         })
+        await session.save()
+        res.status(200).send(session)
+    } catch (err) {
+        res.status(400).send(err)
+    }
+})
+
+//egress parking Session
+router.post('/parkingsessions/egress/:id', auth, async (req, res) => {
+    try {
+        const session = ParkingSession.findById(req.params.id)
+        session.egress = new Date()
         await session.save()
         res.status(200).send(session)
     } catch (err) {
