@@ -23,7 +23,6 @@ const parkingSessionSchema = mongoose.Schema({
         },
         egress: {
             type: Date,
-            required: true
         }
     }
 })
