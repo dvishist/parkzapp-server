@@ -43,6 +43,10 @@ const userSchema = mongoose.Schema({
             required: true,
             default: false
         },
+        parkingSession: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'ParkingSession'
+        },
         vehicle: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Vehicle'
