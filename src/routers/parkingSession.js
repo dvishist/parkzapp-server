@@ -53,7 +53,17 @@ router.post('/parkingsessions/egress/:id', auth, async (req, res) => {
 router.get('/parkingsessions/:id', auth, async (req, res) => {
     const session = await ParkingSession.findById(req.params.id)
     if (!session) throw new Error(`Couldn't find session`)
-    res.send(session)
+    res.status(200).send(session)
+})
+
+//get parking sessions by userId
+router.get('/parkingsessions/user/:id', auth, async (req, res) => {
+    try {
+        const sessions = ParkingSession.find({ user: req.params.id })
+        res.status(200).send(sessions)
+    } catch (err) {
+        res.status(400).send(err)
+    }
 })
 
 module.exports = router
