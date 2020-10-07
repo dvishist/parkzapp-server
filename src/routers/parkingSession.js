@@ -1,15 +1,19 @@
 const express = require('express')
 const router = new express.Router()
 const ParkingSession = require('../db/models/parkingSession')
+const Parking = require('../db/models/parking')
 const auth = require('../middleware/auth')
 
 //create new Parking Session
 router.post('/parkingsessions', auth, async (req, res) => {
-    const session = new ParkingSession(req.body)
-    session.timestamps.ingress = new Date()
-    session.timestamps.egress = null
     try {
+        const session = new ParkingSession(req.body)
+        session.timestamps.ingress = new Date()
+        session.timestamps.egress = null
         await session.save()
+        const parking = await Parking.findById(session.parking)
+        parking.occupants++
+        await parking.save()
         res.status(201).send(session)
     } catch (err) {
         res.status(400).send(err.message)
@@ -36,6 +40,9 @@ router.post('/parkingsessions/egress/:id', auth, async (req, res) => {
         const session = await ParkingSession.findById(req.params.id)
         session.timestamps.egress = new Date()
         await session.save()
+        const parking = await Parking.findById(session.parking)
+        parking.occupants--
+        await parking.save()
         res.status(200).send(session)
     } catch (err) {
         res.status(400).send(err)
