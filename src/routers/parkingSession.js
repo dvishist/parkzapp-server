@@ -59,7 +59,7 @@ router.get('/parkingsessions/:id', auth, async (req, res) => {
 //get parking sessions by userId
 router.get('/parkingsessions/user/:id', auth, async (req, res) => {
     try {
-        const sessions = ParkingSession.find({ user: req.params.id })
+        const sessions = await ParkingSession.find({ user: req.params.id })
         res.status(200).send(sessions)
     } catch (err) {
         res.status(400).send(err)
