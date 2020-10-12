@@ -173,11 +173,14 @@ router.post('/users/vehicle/:vehicleId', auth, async (req, res) => {
 
 router.post('/users/changepassword', auth, async (req, res) => {
     try {
-        const user = await User.findByCredentials(req.user.email, req.body.currentPassword)
+        const user = await User.findOne({ email: req.user.email })
         if (user) {
-            user.password = bcrypt.hash(req.body.newPassword, 8)
-            await user.save()
-            return res.status(200).send(user)
+            const match = bcrypt.compare(req.body.currentPassword, user.password)
+            if (match) {
+                user.password = bcrypt.hash(req.body.newPassword, 8)
+                await user.save()
+                return res.status(200).send(user)
+            }
         } else {
             throw new Error('Incorrect Password')
         }
