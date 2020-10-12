@@ -180,6 +180,8 @@ router.post('/users/changepassword', auth, async (req, res) => {
                 user.password = req.body.newPassword
                 await user.save()
                 return res.status(200).send(user)
+            } else {
+                throw new Error('Incorrect Password')
             }
         } else {
             throw new Error('Incorrect Password')
