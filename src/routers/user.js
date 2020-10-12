@@ -177,7 +177,7 @@ router.post('/users/changepassword', auth, async (req, res) => {
         if (user) {
             const match = bcrypt.compare(req.body.currentPassword, user.password)
             if (match) {
-                user.password = bcrypt.hash(req.body.newPassword, 8)
+                user.password = await bcrypt.hash(req.body.newPassword, 8)
                 await user.save()
                 return res.status(200).send(user)
             }
