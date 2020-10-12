@@ -178,8 +178,10 @@ router.post('/users/changepassword', auth, async (req, res) => {
             user.password = bcrypt.hash(req.body.newPassword, 8)
             await user.save()
             return res.status(200).send(user)
+        } else {
+            throw new Error('Incorrect Password')
         }
-        throw new Error('Incorrect Password')
+
     } catch (err) {
         res.status(400).send(err)
     }
