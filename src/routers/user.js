@@ -175,7 +175,7 @@ router.post('/users/changepassword', auth, async (req, res) => {
     try {
         const user = await User.findOne({ email: req.user.email })
         if (user) {
-            const match = bcrypt.compare(req.body.currentPassword, user.password)
+            const match = await bcrypt.compare(req.body.currentPassword, user.password)
             if (match) {
                 user.password = await bcrypt.hash(req.body.newPassword, 8)
                 await user.save()
