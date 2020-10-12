@@ -3,6 +3,7 @@ const router = new express.Router()
 const auth = require('../middleware/auth')
 const User = require('../db/models/user')
 const Vehicle = require('../db/models/vehicle')
+const bcrypt = require('bcrypt')
 
 const multer = require('multer')
 const sharp = require('sharp')
@@ -161,7 +162,6 @@ router.get('/users/vehicles', auth, async (req, res) => {
 router.post('/users/vehicle/:vehicleId', auth, async (req, res) => {
     try {
         const user = await User.findById(req.user._id)
-        //console.log(user)
         const vehicle = await Vehicle.findById(req.params.vehicleId)
         user.parkState.vehicle = vehicle._id
         await user.save()
@@ -171,5 +171,18 @@ router.post('/users/vehicle/:vehicleId', auth, async (req, res) => {
     }
 })
 
+router.post('/users/changePassword', auth, async (req, res) => {
+    try {
+        const user = await User.findByCredentials(req.user.email, req.body.currentPassword)
+        if (user) {
+            user.password = bcrypt.hash(req.body.newPassword, 8)
+            await user.save()
+            res.status(200).send(user)
+        }
+        throw new Error('Incorrect Password')
+    } catch (err) {
+        res.status(400).send(err)
+    }
+})
 
 module.exports = router
